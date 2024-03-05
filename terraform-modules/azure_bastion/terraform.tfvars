@@ -1,0 +1,8 @@
+pip_name                      = "ajayest_ip"
+location                      = "west europe"
+resource_group_name           = "AjayRG2"
+pip_allocation_method         = "Static"
+pip_sku                       = "Standard"
+bastion_ip_configuration_name = "ipconfig"
+virtual_network_name          = "Ajay_LINVnet"
+bastion_name                  = "ajaybastion"
