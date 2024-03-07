@@ -1,0 +1,14 @@
+inputSet:
+  name: Build_MalliPermier_terraformmodule_1709828745149-push-trigger-input-set
+  identifier: Build_MalliPermier_terraformmodule_1709828745149pushtriggerinputset
+  orgIdentifier: default
+  projectIdentifier: default_project
+  pipeline:
+    identifier: Build_MalliPermier_terraformmodule_1709828745149
+    properties:
+      ci:
+        codebase:
+          build:
+            type: branch
+            spec:
+              branch: <+trigger.branch>
