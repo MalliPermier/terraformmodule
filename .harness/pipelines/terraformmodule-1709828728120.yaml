@@ -21,13 +21,31 @@ pipeline:
                   identifier: echo
                   name: echo
                   spec:
-                    command: echo hello world
+                    shell: Sh
+                    command: |-
+                      terraform init
+                      ls 
+                      pwd
                   timeout: ""
                   type: Run
+              - step:
+                  type: Run
+                  name: az login
+                  identifier: az_login
+                  spec:
+                    shell: Sh
+                    command: az login
+              - step:
+                  type: Run
+                  name: Run_3
+                  identifier: Run_3
+                  spec:
+                    shell: Sh
+                    command: terraform plan
           platform:
-            arch: Amd64
             os: Linux
+            arch: Amd64
           runtime:
-            spec: {}
             type: Cloud
+            spec: {}
         type: CI
