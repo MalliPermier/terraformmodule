@@ -16,9 +16,14 @@ terraform {
     }
   }
 }
-
 provider "azurerm" {
-  features {}
+   features {}
+}
+
+provider "azapi" {
+	subscription_id = "64eb0097-f3d0-45d2-a9fd-cf90f5b28ad5"
+	tenant_id = "d420b80d-bc1a-429d-b6c6-587896c20153"
+
 }
 
 variable "resource_group_location" {}

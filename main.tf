@@ -5,12 +5,12 @@ module "azure-resource-group" {
   resource_group_name = var.resource_group_name
 }
 
-module "azure-ssh" {
-  source = "./terraform-modules/create-azure-ssh"
+#module "azure-ssh" {
+#  source = "./terraform-modules/create-azure-ssh"
 
-  resource_group_location = module.azure-resource-group.resource_group_location
-  resource_group_id = module.azure-resource-group.resource_group_id
-}
+#  resource_group_location = module.azure-resource-group.resource_group_location
+#  resource_group_id = module.azure-resource-group.resource_group_id
+#}
 
 module "azure_vnet" {
   source = "./terraform-modules/create-azure-network"
@@ -98,8 +98,8 @@ module "azure-vm" {
   azurerm_linux_virtual_machine_computer_name = var.azurerm_linux_virtual_machine_computer_name
   azurerm_linux_virtual_machine_admin_username = var.azurerm_linux_virtual_machine_admin_username
 
-  ssh_public_key = module.azure-ssh.key_data
-  ssh_private_key = module.azure-ssh.key_data_private
+  ssh_public_key = "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDjUu1cJaGu4bqiEFTAVVZz09yHqUd1srG/3i2OdQtdkqp4T3l26iEVkQ7Ok2Qkbg57dyQo6tYG7vQON22wN7RkUg1Oc3O5SZFHeuXTuEewIZzWsZiK2p8xmhK3fPccTD1PB4gNUXCVn7YDysLknvYmfIDz6o7AaFCWyNcpIp7X/xR7JH+Lc77oW75KQIEjB14pxAgjAJce5330OY97ysN0QuK273rV/1tRZbjTrKEOUKUVb4+EiHdeDIvGy5vkV5YilBQ0sJdWTp1mGzpX0sL/MPTWYMlOWaxFAszfBAy13ob9EiiBqUhH71QAuIoOYzGfd7svca7TxJIMto1ApZ5fsBDOppXt6SIcEZaawz095B4YB0TMZoIhP+jwGo8Wm51NePkYCrfGZp9jpVG561y3+uiNTZ3NAa7NFtKf56ymzPqFb72FD2/HHennEwHwOusifAYPRpJe+m2vvpcz3mQuehmnOHuCn3b7yX1hHaOZ29NcNoHsEriexseup4JbpQ0= generated-by-azure"
+  ssh_private_key = var.key_data_private
 
   ssh_timeout = var.ssh_timeout
   file_source = var.file_source

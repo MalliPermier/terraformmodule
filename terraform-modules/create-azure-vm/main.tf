@@ -64,7 +64,7 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
         host = azurerm_linux_virtual_machine.my_terraform_vm.public_ip_address
         user = var.azurerm_linux_virtual_machine_admin_username
         type = "ssh"
-        private_key = var.ssh_private_key
+        private_key = file("/root/terraformmodule/terraform-modules/create-azure-vm/premier.pem")
         timeout = var.ssh_timeout
         agent = false
     }
@@ -72,6 +72,15 @@ resource "azurerm_linux_virtual_machine" "my_terraform_vm" {
 	provisioner "file" {
         source = var.file_source
         destination = var.file_destination
+		 connection {
+        host = azurerm_linux_virtual_machine.my_terraform_vm.public_ip_address
+        user = var.azurerm_linux_virtual_machine_admin_username
+        type = "ssh"
+        private_key = file("/root/terraformmodule/terraform-modules/create-azure-vm/premier.pem")
+        timeout = var.ssh_timeout
+        agent = false
+    }
+
     }
 
     provisioner "remote-exec" {
