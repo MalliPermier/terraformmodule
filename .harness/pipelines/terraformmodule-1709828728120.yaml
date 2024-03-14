@@ -19,7 +19,7 @@ pipeline:
             steps:
               - step:
                   identifier: echo
-                  name: echo
+                  name: Terraform init
                   spec:
                     shell: Sh
                     command: |-
@@ -37,7 +37,7 @@ pipeline:
                     command: az login
               - step:
                   type: Run
-                  name: Run_3
+                  name: Terraform plan
                   identifier: Run_3
                   spec:
                     shell: Sh
@@ -49,3 +49,54 @@ pipeline:
             type: Cloud
             spec: {}
         type: CI
+        when:
+          pipelineStatus: Success
+    - stage:
+        name: Apply Changes
+        identifier: Apply_Changes
+        description: ""
+        type: Approval
+        spec:
+          execution:
+            steps:
+              - step:
+                  name: Apply changes
+                  identifier: Apply_changes
+                  type: HarnessApproval
+                  timeout: 1d
+                  spec:
+                    approvalMessage: |-
+                      Please review the following information
+                      and approve the pipeline progression
+                    includePipelineExecutionHistory: true
+                    approvers:
+                      minimumCount: 1
+                      disallowPipelineExecutor: false
+                      userGroups:
+                        - account._account_all_users
+                    isAutoRejectEnabled: false
+                    approverInputs: []
+        tags: {}
+    - stage:
+        name: Deploy Infra
+        identifier: Deploy_Infra
+        description: ""
+        type: Custom
+        spec:
+          execution:
+            steps:
+              - step:
+                  type: ShellScript
+                  name: ShellScript_1
+                  identifier: ShellScript_1
+                  spec:
+                    shell: Bash
+                    executionTarget: {}
+                    source:
+                      type: Inline
+                      spec:
+                        script: terraform apply --auto-approve
+                    environmentVariables: []
+                    outputVariables: []
+                  timeout: 10m
+        tags: {}
